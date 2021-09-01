@@ -15,8 +15,9 @@ RLI_HOME_DEFAULT="${HOME}/radiantone/vds"
 CLUSTER_NAME_DEFAULT="cluster1"
 read -p "Enter FID version (>=7.3.X) [${FID_VERSION_DEFAULT}]: " FID_VERSION
 FID_VERSION=${FID_VERSION:-$FID_VERSION_DEFAULT}
-read -p "Enter RLI_HOME path [${RLI_HOME_DEFAULT}]: " RLI_HOME
-RLI_HOME=${RLI_HOME:-$RLI_HOME_DEFAULT}
+# read -p "Enter RLI_HOME path [${RLI_HOME_DEFAULT}]: " RLI_HOME
+# RLI_HOME=${RLI_HOME:-$RLI_HOME_DEFAULT}
+RLI_HOME=$RLI_HOME_DEFAULT
 read -p "Enter cluster name [${CLUSTER_NAME_DEFAULT}]: " CLUSTER_NAME
 CLUSTER_NAME=${CLUSTER_NAME:-$CLUSTER_NAME}
 read -p "Enter password: " PASSWORD
@@ -55,20 +56,54 @@ if test -f $installer_save_location
 then
     echo "Download Completed!"
 
-    if test ! -f $RLI_HOME; then
-    echo "Creating ${RLI_HOME} directory"
-    mkdir -p  $RLI_HOME
-    fi
+    zip_destination="${HOME}/radiantone/"
 
-    $zip_destination =${RLI_HOME/vds$/.}
+    if test ! -f $zip_destination; then
+    echo "Creating ${zip_destination} directory"
+    mkdir -p $zip_destination
+    fi
+    
+    
 
     echo "Unzipping the downloaded package to ${zip_destination}"
 
-	check_file_exist_delete $zip_destination
-
-    tar -xf $installer_save_location -C $zip_destination
+    tar -zxf $installer_save_location --directory $zip_destination -v
 
     echo "Unzipping completed!"
+
+    license_file="${RLI_HOME}/vds_server/license.lic"
+
+    echo "Setting up the license file at ${license_file} ..."
+
+    echo $LICENSE > $license_file
+
+    echo "${license_file} created successfully!"
+
+    echo "Setting up environmental variables!"
+
+    echo "RLI_HOME=${RLI_HOME}" >> /etc/environment
+
+    install_properties_file="${RLI_HOME}/install/install-sample.properties"
+
+    echo "Editing ${install_properties_file} ..."
+    
+    sed -i "s/StrongP@ssword1/${PASSWORD}/" $install_properties_file
+    
+    sed -i "s/cluster1/${CLUSTER_NAME}/" $install_properties_file
+    
+    echo "Installing FID versiom=${FID_VERSION} ..."
+    
+    install_command="${RLI_HOME}/bin/instanceManager.sh --setup-install ${install_properties_file}"
+
+    echo "Invoking the command ${install_command}"
+    
+    eval $install_command
+    
+    echo "Installation completed, Starting control panel ..."
+    
+    launch_control_panel="${RLI_HOME}/bin/openControlPanel.sh"
+	eval $launch_control_panel
+    
 else
     print_warn "Installer package file not found ${installer_save_location}"
 fi

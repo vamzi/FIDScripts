@@ -1,6 +1,7 @@
 if([string]::IsNullOrEmpty($args[0])){
 	$FID_VERSION= Read-Host "Enter FID version (>=7.3.X)"
-	$RLI_HOME= Read-Host "Ener RLI_HOME path"
+	# $RLI_HOME= Read-Host "Ener RLI_HOME path"
+	$RLI_HOME="c:\radiantone\vds"
 	$CLUSTER_NAME= Read-Host "Enter cluster name"
 	$PASSWORD= Read-Host "Enter password"
 	$REPASSWORD= Read-Host "Re-enter password"
