@@ -31,6 +31,8 @@ do
 done
 read -p "Enter license: " LICENSE
 
+# Change the $download_location to force install & $installer_save_location as well with same file name from the web link 
+# You can enter fid version as a dummy value if you force the $download_location
 download_location="http://10.11.12.113/share/artifacts/stable_releases/${FID_VERSION}/installers/ces/radiantone_${FID_VERSION}_full_linux_64.tar.gz"
 installer_save_location="${HOME}/radiantone_${FID_VERSION}_full_linux_64.tar.gz"
 

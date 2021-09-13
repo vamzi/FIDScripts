@@ -19,6 +19,10 @@ $LICENSE=$args[4] # Provide in double quotes
 }
 $RLI_HOME_PROP = $RLI_HOME.Replace("\","\\")
 $PROPERTIES_FILE = "${HOME}\Downloads\install.properties"
+
+# Change the $download_location to force install & $installer_save_location as well with same file name from the web link 
+# You can enter fid version as a dummy value if you force the $download_location
+
 $download_location="http://10.11.12.113/share/artifacts/stable_releases/${FID_VERSION}/installers/ces/radiantone_${FID_VERSION}_windows_64.exe"
 $installer_save_location="${HOME}\Downloads\radiantone_${FID_VERSION}_windows_64.exe"
 echo "Downloading from ${download_location} ..."
@@ -90,3 +94,6 @@ New-Item $license_file
 Set-Content $license_file $LICENSE
 echo "${license_file} created successfully!"
 echo "Installation completed, Now restart ..."
+Write-Host -NoNewLine 'Press any key to continue...';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+Restart-Computer

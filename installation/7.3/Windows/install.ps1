@@ -22,6 +22,9 @@ if([string]::IsNullOrEmpty($args[0])){
 	$PASSWORD=$args[3] # Provide in double quotes
 	$LICENSE=$args[4] # Provide in double quotes
 }
+
+# Change the $download_location to force install & $installer_save_location as well with same file name from the web link 
+# You can enter fid version as a dummy value if you force the $download_location
 $download_location="http://10.11.12.113/share/artifacts/stable_releases/${FID_VERSION}/installers/ces/radiantone_${FID_VERSION}_full_windows_64.zip"
 $installer_save_location="${HOME}\Downloads\radiantone_${FID_VERSION}_full_windows_64.zip"
 
