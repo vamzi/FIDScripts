@@ -72,6 +72,7 @@ if (Test-Path $installer_save_location) {
 	echo "Editing ${install_properties_file} ..."
 	(Get-Content $install_properties_file).replace('StrongP@ssword1',$PASSWORD) | Set-Content $install_properties_file
 	(Get-Content $install_properties_file).replace('cluster1',$CLUSTER_NAME) | Set-Content $install_properties_file
+	# Add-Content $install_properties_file "vds.security.pbe.enabled=true"
 	
 	echo "Installing FID versiom=${FID_VERSION} ..."
 	$install_command=$RLI_HOME+'\bin\InstanceManager.exe --setup-install '+ $install_properties_file
