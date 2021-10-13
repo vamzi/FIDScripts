@@ -1,7 +1,7 @@
 # Download Script
 
 ```
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/vkothapallirli/FIDScripts/main/installation/7.3/Windows/install.ps1 -OutFile $HOME\Desktop\install.p
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/vkothapallirli/FIDScripts/main/installation/7.3/Windows/install.ps1 -OutFile $HOME\Desktop\install.ps1
 ```
 
 # Example Usage
