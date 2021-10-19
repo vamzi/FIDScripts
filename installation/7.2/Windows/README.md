@@ -1,3 +1,9 @@
+# Download Script
+
+```
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/vkothapallirli/FIDScripts/main/installation/7.2/Windows/install.ps1
+```
+
 # Example Usage
 
 
